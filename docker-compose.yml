@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.backend
+    
+    depends_on:
+      - postgres
+
+    ports:
+      - 8080:8080
+
+  websocket:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.ws
+    
+    depends_on:
+      - postgres
+    
+    ports:
+      - 8081:8081
+
+  web:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.frontend
+      args:
+        - DATABASE_URL=${DATABASE_URL}
+    
+    depends_on:
+      - postgres
+    
+    ports:
+      - 3001:3001
+
+volumes:
+  postgres_data:
