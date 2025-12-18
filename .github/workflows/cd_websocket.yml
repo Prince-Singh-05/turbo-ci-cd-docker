@@ -7,7 +7,7 @@ on:
 jobs:
   deploy_websocket:
     runs-on: ubuntu-latest
-    name: Deployinng Web Socket Service
+    name: Deploying Web Socket Service
 
     steps:
       - name: Checkout the code

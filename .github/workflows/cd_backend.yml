@@ -7,7 +7,7 @@ on:
 jobs:
   deploy_backend:
     runs-on: ubuntu-latest
-    name: Deployinng Backend Service
+    name: Deploying Backend Service
 
     steps:
       - name: Checkout the code
